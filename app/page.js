@@ -1,95 +1,68 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import "photoswipe/dist/photoswipe.css";
+import React, { useEffect, useState } from "react";
+import { Gallery, Item } from "react-photoswipe-gallery";
+import InfiniteScroll from "react-infinite-scroll-component";
+import "../app/new.css";
 
-export default function Home() {
+export default function page() {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [hashMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    // fetch("https://www.reddit.com/r/memes.json?limit=1000")
+    // fetch("https://www.reddit.com/r/memes.json?limit=1000&after=t3_1abxcek")
+    fetch(`https://www.reddit.com/r/memes.json?limit=100&after=t3_${page}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const postData = data.data.children.map((post) => ({
+          title: post.data.title,
+          thumbnail: post.data.thumbnail,
+          url: post.data.url,
+        }));
+        setPosts(postData);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  if (isLoading) return <p>isLoading...</p>;
+  if (!posts) return <p>No Data Found</p>;
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <>
+      <h1 style={{ width: "100%", textAlign: "center",backgroundColor:"black", color:"whitesmoke" }}>Gallery</h1>
+      <div className="gallery">
+        <Gallery>
+          {posts.map((post, index) => (
+            <Item
+              
+              id={index}
+              thumbnail={post.thumbnail}
+              original={post.url}
+              title={post.title}
+              width="1080"
+              height="750"
+            >
+              {({ ref, open }) => (
+             
+                <img
+                  style={{ width: "100%" }}
+                  ref={ref}
+                  onClick={open}
+                  thumbnail={post.thumbnail}
+                  src={post.url}
+                  key={index}
+                />
+              )}
+            </Item>
+          ))}
+        </Gallery>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
