@@ -9,7 +9,6 @@
   -webkit-column-width: 30%;
   -moz-column-width: 30%;
   column-width: 30%; 
-   padding: 12px 12px;
 }
 .gallery .pic {
   -webkit-transition: all 350ms ease;
