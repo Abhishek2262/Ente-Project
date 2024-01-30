@@ -2,7 +2,7 @@
 import "photoswipe/dist/photoswipe.css";
 import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroll-component";
 import "../app/new.css";
 
 export default function page() {
@@ -12,9 +12,9 @@ export default function page() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // fetch("https://www.reddit.com/r/memes.json?limit=1000")
+    fetch("https://www.reddit.com/r/memes.json?limit=1000")
     // fetch("https://www.reddit.com/r/memes.json?limit=1000&after=t3_1abxcek")
-    fetch(`https://www.reddit.com/r/memes.json?limit=100&after=t3_${page}`)
+    // fetch(`https://www.reddit.com/r/memes.json?limit=100&after=t3_${page}`)
       .then((res) => res.json())
       .then((data) => {
         const postData = data.data.children.map((post) => ({
@@ -45,7 +45,7 @@ export default function page() {
               thumbnail={post.thumbnail}
               original={post.url}
               title={post.title}
-              width="1080"
+              width="800"
               height="750"
             >
               {({ ref, open }) => (
