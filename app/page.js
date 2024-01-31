@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "../app/new.css";
 
+
 export default function Page() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
