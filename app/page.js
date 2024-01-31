@@ -4,14 +4,12 @@ import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "../app/new.css";
 
-
-export default function page() {
+export default function Page() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [after, setAfter] = useState("");
 
   const fetchData = () => {
-
     fetch(`https://www.reddit.com/r/memes.json?limit=1000&after=${after}`)
       .then((res) => res.json())
       .then((data) => {
@@ -20,9 +18,10 @@ export default function page() {
           thumbnail: post.data.thumbnail,
           url: post.data.url,
         }));
-
+        setLoading(true);
         setPosts((prevPosts) => [...prevPosts, ...postData]);
-        const newLoadData =  data.data.after;
+        const newLoadData = data.data.after;
+
         if (newLoadData !== after) {
           setAfter(newLoadData);
         }
@@ -37,7 +36,7 @@ export default function page() {
   const handelInfiniteScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight  >= scrollHeight -20 && !isLoading) {
+    if (scrollTop + clientHeight >= scrollHeight - 20 && !isLoading) {
       fetchData();
     }
   };
@@ -80,6 +79,7 @@ export default function page() {
                     thumbnail={post.thumbnail}
                     src={post.url}
                     key={index}
+                    alt="Img"
                   />
                 )}
               </Item>
