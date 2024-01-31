@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "../app/new.css";
 
-export default function Page() {
+export default function Home() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [after, setAfter] = useState("");
