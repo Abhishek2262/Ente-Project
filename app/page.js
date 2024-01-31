@@ -4,14 +4,13 @@ import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "../app/new.css";
 
-
 export default function Page() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [after, setAfter] = useState("");
 
   const fetchData = () => {
-    fetch(`https://www.reddit.com/r/memes.json?limit=1000&after=${after}`)
+    fetch(`https://www.reddit.com/r/memes.json?limit=70&after=${after}`)
       .then((res) => res.json())
       .then((data) => {
         const postData = data.data.children.map((post) => ({
@@ -34,22 +33,22 @@ export default function Page() {
       });
   };
 
-  const handelInfiniteScroll = () => {
+  const handleInfiniteScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight - 20 && !isLoading) {
+    if (scrollTop + clientHeight >= scrollHeight - 10 && !isLoading) {
       fetchData();
     }
   };
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handelInfiniteScroll);
-    return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, [handelInfiniteScroll]);
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll);
+  }, [handleInfiniteScroll]);
 
   if (isLoading) return <p>isLoading...</p>;
   if (!posts) return <p>No Data Found</p>;
