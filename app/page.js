@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "../app/new.css";
 
+
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ export default function Home() {
           <h1> Gallery</h1>
         </div>
 
-        <div className="gallery">
+        <div  className="mt-24 max-w-7xl mx-auto lg:columns-5 md:columns-3 sm:columns-2 xs:columns-1">
           <Gallery>
             {posts.map((post, index) => (
               <Item
