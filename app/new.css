@@ -1,35 +1,64 @@
-.gallery {
- 
+.gallery-root {
+  font-family: "Cedarville Cursive", cursive;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(15, 13, 13);
-  color: whitesmoke;
-  -webkit-column-count: 4;
-  -moz-column-count: 4;
-  column-count: 4;
+}
+.heading-bar {
+  width: 100%;
+  height: 20vh;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gallery {
+  width: 90%;
+
+  -webkit-column-count: 5;
+  -moz-column-count: 5;
+  column-count: 5;
   -webkit-column-width: 20%;
   -moz-column-width: 20%;
-  column-width: 20%; 
-  padding-top: 12px;
+  column-width: 20%;
+  padding-top: 15px;
 }
-.gallery .pic {
+
+.gallery img:hover {
   -webkit-transition: all 350ms ease;
   transition: all 350ms ease;
+  transform: scale(1.05, 1.05);
+  box-shadow: 0px 0px 100px #18dde9;
   cursor: pointer;
-  margin-bottom: 12px;
-  /* width: 100%; */
 }
-.gallery .pic:hover{
-    /* filter: opacity(.8); */
-    transform: scale(1.05,1.05);
-}
-.open{
-    width: 50%;
-    height: 50vh;
+.open {
+  width: 50%;
+  height: 50vh;
 }
 @media (max-width: 991px) {
   .gallery {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
   }
 }
 @media (max-width: 480px) {
