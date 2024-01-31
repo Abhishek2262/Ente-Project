@@ -31,19 +31,8 @@
   }
 }
 
-/* .gallery {
-  width: 90%;
 
-  -webkit-column-count: 5 !important;
-  -moz-column-count: 5 !important;
-  column-count: 5 !important;
-  -webkit-column-width: 20% !important;
-  -moz-column-width: 20% !important;
-  column-width: 20% !important;
-  padding-top: 15px !important;
-} */
-
-.gallery img:hover {
+.gallery-root img:hover {
   -webkit-transition: all 350ms ease ;
   transition: all 350ms ease;
   transform: scale(1.05, 1.05);
@@ -54,20 +43,4 @@
   width: 50%;
   height: 50vh;
 }
-@media (max-width: 991px) {
-  .gallery {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-  }
-}
-@media (max-width: 480px) {
-  .gallery {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-    -webkit-column-width: 100%;
-    -moz-column-width: 100%;
-    column-width: 100%;
-  }
-}
+
